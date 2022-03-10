@@ -15,7 +15,11 @@ namespace msa {
 		inline double getTotalSeconds();			// elapsed seconds since beginning of time
 		inline double getAppSeconds();				// elapsed seconds since start of app
 		inline double getSecondsSinceLastCall();	// elapsed seconds since last time this function was called
-		
+        
+        
+        inline double getTotalMillis();             // elapsed milliseconds since beginning of time
+		inline double getAppMillis();               // elapsed milliseconds since start of app
+        
 		inline void start();	
 		inline void stop();
 		inline double getSeconds();			// elapsed seconds since you called start()
@@ -73,7 +77,18 @@ namespace msa {
 		lastCallTime = nowTime;
 		return diff;
 	}
-	
+    
+    //--------------------------------------------------------------
+    inline double getTotalMillis() {
+        //TODO: might need to modify to use mach_absolute_time as in getTotalSeconds ??
+        return ofGetElapsedTimeMillis();
+    }
+    
+    //--------------------------------------------------------------
+    inline double Timer::getAppMillis() {
+        return getTotalMillis() - appStartTime;
+    }
+
 	//--------------------------------------------------------------
     inline void Timer::start() {
 		isRunning = true;
